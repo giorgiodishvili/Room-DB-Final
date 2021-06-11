@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.fridaytaskapplication.callback.RecyclerViewCallback
 import com.android.fridaytaskapplication.databinding.ItemPictureLayoutBinding
 import com.android.fridaytaskapplication.model.Picture
+import com.bumptech.glide.Glide
 
 class RecyclerViewAdapter(val listener: RecyclerViewCallback) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val pictureList: MutableList<Picture> = mutableListOf()
@@ -36,6 +37,8 @@ class RecyclerViewAdapter(val listener: RecyclerViewCallback) : RecyclerView.Ada
         fun bind() {
             picture = pictureList[absoluteAdapterPosition]
             binding.tvTitle.text = picture.title
+            Glide.with(App.applicationContext()).load(picture.picture)
+                .into(binding.image)
             binding.tvDescription.text = picture.description
             binding.update.setOnClickListener{
                 listener.onUpdateClick(picture)
